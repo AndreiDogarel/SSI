@@ -142,19 +142,18 @@ key = bytes.fromhex(key_hex)
 plain_text = bytes([c ^ k for c, k in zip(cipher_text, key)])
 print(plain_text.decode(errors='ignore'))
 ```
-Mesajul clar obținut:
+Mesajul obținut:
 ```
-[mesaj decodificat]
+One Time Pad este un sistem de criptare perfect sigur daca este folosit corect.
 ```
 
-## 2. Cheia alternativă
-Un alt text clar poate fi obținut folosind o cheie diferită, conform proprietăților OTP:
+## 2. 
 ```python
-new_plain_text = "[textul clar cerut în enunț]".encode()
+new_plain_text = "Orice text clar poate obtinut dintr-un text criptat cu OTP dar cu alta cheie.".encode()
 new_key = bytes([c ^ p for c, p in zip(cipher_text, new_plain_text)])
 print(new_key.hex())
 ```
-Noua cheie: `[...]`
+Noua cheie: `ecad8de748ef0b1a857f032101bdb51f5e07c3c37931c37b3c3219ef748215708cf046a18588c1e2f897ca0076ca7f924eb1e6efcb1b905afed5d110228d24049b8242bec6e11d82699409fa12`
 
 ## 3. Impactul refolosirii cheii
 Refolosirea cheii în OTP compromite securitatea. Dacă două mesaje sunt criptate cu aceeași cheie, putem deduce informații aplicând XOR între ele.
