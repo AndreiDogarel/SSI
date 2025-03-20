@@ -6,11 +6,11 @@
 
 Atribuirea termenilor corecți definițiilor:
 
-- **(B) Securitate**: O condiție care rezultă din stabilirea și menținerea măsurilor de protecție care permit unei organizații/sistem să își îndeplinească misiunea sau funcțiile critice, în ciuda riscurilor reprezentate de amenințări.
-- **(D) Vulnerabilitate**: Slăbiciune într-un sistem informațional, proceduri de securitate ale sistemului, controale interne sau implementare care ar fi putea fi exploatate sau declanșate de o sursă de amenințare.
-- **(A) Adversar**: O entitate (inclusiv un insider) care acționează rău intenționat pentru a compromite un sistem.
-- **(E) Securitatea cibernetică**: Capacitatea de a proteja / apăra spațiul cibernetic de atacuri cibernetice.
-- **(C) Risc**: O măsură a gradului în care o entitate este amenințată de o eventuală circumstanță sau eveniment.
+- **(B) Securitate**: (1) O condiție care rezultă din stabilirea și menținerea măsurilor de protecție care permit unei organizații/sistem să își îndeplinească misiunea sau funcțiile critice, în ciuda riscurilor reprezentate de amenințări.
+- **(D) Vulnerabilitate**: (2) Slăbiciune într-un sistem informațional, proceduri de securitate ale sistemului, controale interne sau implementare care ar fi putea fi exploatate sau declanșate de o sursă de amenințare.
+- **(A) Adversar**: (3) O entitate (inclusiv un insider) care acționează rău intenționat pentru a compromite un sistem.
+- **(E) Securitatea cibernetică**: (4) Capacitatea de a proteja / apăra spațiul cibernetic de atacuri cibernetice.
+- **(C) Risc**: (5) O măsură a gradului în care o entitate este amenințată de o eventuală circumstanță sau eveniment.
 
 
 ## 3.
