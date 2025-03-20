@@ -122,6 +122,8 @@ Se consideră un sistem criptografic cu cheie de 512 biți.
 
 # Securitatea Sistemelor Informatice - Laborator 3
 
+# OTP
+
 ## 1.
 
 Mesajul criptat este furnizat în format Base64, iar cheia în hex. Pentru a-l decripta, trebuie să:
@@ -155,21 +157,22 @@ print(new_key.hex())
 ```
 Noua cheie: `ecad8de748ef0b1a857f032101bdb51f5e07c3c37931c37b3c3219ef748215708cf046a18588c1e2f897ca0076ca7f924eb1e6efcb1b905afed5d110228d24049b8242bec6e11d82699409fa12`
 
-## 3. Impactul refolosirii cheii
+## 3.
 Refolosirea cheii în OTP compromite securitatea. Dacă două mesaje sunt criptate cu aceeași cheie, putem deduce informații aplicând XOR între ele.
 
 # Sisteme de criptare istorice
 
-## 1. Criptare prin substituție
+## 1.
 Sistem ales: Cifrul lui Cezar.
 - Exemplu:
   - Cheie: 3
   - Text clar: `HELLO`
   - Text criptat: `KHOOR`
+  - Mod de funcționare: deplasăm literele circular din alfabet cu k (cheia) poziții.
 - Securitate: slabă, vulnerabilă la analiza frecvenței.
 - Criptanaliză: analiză de frecvență, brute-force (doar 25 de chei posibile).
 
-## 2. Criptare prin transpoziție
+## 2. 
 Sistem ales: Transpoziția coloanelor.
 - Exemplu:
   - Text clar: `HELLO WORLD`
@@ -179,17 +182,26 @@ Sistem ales: Transpoziția coloanelor.
 
 # Analiza de frecvență
 
-Text criptat furnizat → analizăm frecvența literelor și comparăm cu frecvențele tipice ale limbii engleze.
-
 Cod Python:
 ```python
 from collections import Counter
 
-encrypted_text = "ENHFJ EWK LML EOJ GDJ BMONKC ..."
+encrypted_text = "ENHFJ EWK LML EOJ GDJ BMONKC PMCG YEPMAC FOVQGMROEQDHF FMAQNJ. CHWFJ GDJHO HWUJWGHMW HW 1978, GDJV DEUJ EG MWFJ LJJW FENNJK HWCJQEOELNJ, EWK DEUJ LJJW GDJ CALXJFG MY WAPJOMAC KHUMOFJC, GOEUJNC, EWK GMOPJWGC. HW GDJ JWCAHWR VJEOC, MGDJO FDEOEFGJOC DEUJ XMHWJK GDJHO FOVQGMROEQDHF YEPHNV. GDJOJC JUJ, GDJ QECCHUJ EWK CALPHCCHUJ JEUJCKOMQQJO, PENNMOV GDJ PENHFHMAC EGGEFTJO, EWK GOJWG, GOACGJK LV ENN, XACG GM WEPJ E YJB. BDHNJ ENHFJ, LML, EWK GDJHO JSGJWKJK YEPHNV BJOJ MOHRHWENNV ACJK GM JSQNEHW DMB QALNHF TJV FOVQGMROEQDV BMOTC, GDJV DEUJ CHWFJ LJFMPJ BHKJNV ACJK EFOMCC MGDJO CFHJWFJ EWK JWRHWJJOHWR KMPEHWC. GDJHO HWYNAJWFJ FMWGHWAJC GM ROMB MAGCHKJ MY EFEKJPHE EC BJNN: ENHFJ EWK LML EOJ WMB E QEOG MY RJJT NMOJ, EWK CALXJFG GM WEOOEGHUJC EWK UHCAEN KJQHFGHMWC GDEG FMPLHWJ QJKERMRV BHGD HW-XMTJC, MYGJW OJYNJFGHWR MY GDJ CJSHCG EWK DJGJOMWMOPEGHUJ JWUHOMWPJWGC HW BDHFD GDJV BJOJ LMOW EWK FMWGHWAJ GM LJ ACJK. PMOJ GDEW XACG GDJ BMONKC PMCG YEPMAC FOVQGMROEQDHF FMAQNJ, ENHFJ EWK LML DEUJ LJFMPJ EW EOFDJGVQJ MY KHRHGEN JSFDEWRJ, EWK E NJWC GDOMARD BDHFD GM UHJB LOMEKJO KHRHGEN FANGAOJ. I.KAQMWG EWK E.FEGGEQEW FOVQGMFMAQNJ"
+
 letter_counts = Counter(encrypted_text.replace(" ", ""))
 print(letter_counts.most_common())
 ```
-După înlocuirea literelor conform frecvențelor, obținem textul clar și sursa acestuia.
+
+- Frecvența literelor: 
+```
+[('J', 122), ('E', 79), ('G', 71), ('W', 66), ('M', 66), ('H', 62), ('O', 56), ('C', 48), ('F', 45), ('D', 41), ('K', 37), ('N', 36), ('A', 28), ('Q', 24), ('L', 22), ('P', 20), ('V', 19), ('R', 17), ('U', 17), (',', 17), ('B', 16), ('Y', 13), ('.', 9), ('X', 6), ('T', 5), ('S', 4), ('1', 1), ('9', 1), ('7', 1), ('8', 1), (':', 1), ('-', 1), ('I', 1)]
+```
+
+- Textul obținut: [online tool](https://www.quipqiup.com)
+```
+	ALICE AND BOB ARE THE WORLDS MOST FAMOUS CRYPTOGRAPHIC COUPLE. SINCE THEIR INVENTION IN 1978, THEY HAVE AT ONCE BEEN CALLED INSEPARABLE, AND HAVE BEEN THE SUBJECT OF NUMEROUS DIVORCES, TRAVELS, AND TORMENTS. IN THE ENSUING YEARS, OTHER CHARACTERS HAVE JOINED THEIR CRYPTOGRAPHIC FAMILY. THERES EVE, THE PASSIVE AND SUBMISSIVE EAVESDROPPER, MALLORY THE MALICIOUS ATTACKER, AND TRENT, TRUSTED BY ALL, JUST TO NAME A FEW. WHILE ALICE, BOB, AND THEIR EXTENDED FAMILY WERE ORIGINALLY USED TO EXPLAIN HOW PUBLIC KEY CRYPTOGRAPHY WORKS, THEY HAVE SINCE BECOME WIDELY USED ACROSS OTHER SCIENCE AND ENGINEERING DOMAINS. THEIR INFLUENCE CONTINUES TO GROW OUTSIDE OF ACADEMIA AS WELL: ALICE AND BOB ARE NOW A PART OF GEEK LORE, AND SUBJECT TO NARRATIVES AND VISUAL DEPICTIONS THAT COMBINE PEDAGOGY WITH IN-JOKES, OFTEN REFLECTING OF THE SEXIST AND HETERONORMATIVE ENVIRONMENTS IN WHICH THEY WERE BORN AND CONTINUE TO BE USED. MORE THAN JUST THE WORLDS MOST FAMOUS CRYPTOGRAPHIC COUPLE, ALICE AND BOB HAVE BECOME AN ARCHETYPE OF DIGITAL EXCHANGE, AND A LENS THROUGH WHICH TO VIEW BROADER DIGITAL CULTURE. Q.DUPONT AND A.CATTAPAN CRYPTOCOUPLE
+```
+
 
 # Sistemul Enigma
 
