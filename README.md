@@ -117,3 +117,85 @@ Se consideră un sistem criptografic cu cheie de 512 biți.
 
 - **Eficiența atacului:**
   - Chiar și cu cel mai rapid calculator posibil, acest atac nu este fezabil. Timpul necesar pentru a testa toate cheile depășește durata de viață a universului.
+
+
+
+# Securitatea Sistemelor Informatice - Laborator 3
+
+## 1.
+
+Mesajul criptat este furnizat în format Base64, iar cheia în hex. Pentru a-l decripta, trebuie să:
+1. Decodăm mesajul din Base64.
+2. Convertim cheia din hex la bytes.
+3. Aplicăm XOR între textul criptat și cheie.
+
+Cod Python pentru decriptare:
+```python
+import base64
+
+cipher_text_base64 = "o9/khC3Pf3/9CyNCbdzHPy5oorccEawZSFt3mgCicRnihDSM8Obhlp3vviAVuBbiOtCSz6husBWqhfF0Q/8EZ+6iI9KygD3hAfFgnzyv9w=="
+key_hex = "ecb181a479a6121add5b42264db9b44b4b48d7d93c62c56a3c3e1aba64c7517a90ed44f8919484b6ed8acc4670db62c249b9f5bada4ed474c9e4d111308b614788cd4fbdc1e949c1629e12fa5fdbd9"
+
+cipher_text = base64.b64decode(cipher_text_base64)
+key = bytes.fromhex(key_hex)
+
+plain_text = bytes([c ^ k for c, k in zip(cipher_text, key)])
+print(plain_text.decode(errors='ignore'))
+```
+Mesajul clar obținut:
+```
+[mesaj decodificat]
+```
+
+## 2. Cheia alternativă
+Un alt text clar poate fi obținut folosind o cheie diferită, conform proprietăților OTP:
+```python
+new_plain_text = "[textul clar cerut în enunț]".encode()
+new_key = bytes([c ^ p for c, p in zip(cipher_text, new_plain_text)])
+print(new_key.hex())
+```
+Noua cheie: `[...]`
+
+## 3. Impactul refolosirii cheii
+Refolosirea cheii în OTP compromite securitatea. Dacă două mesaje sunt criptate cu aceeași cheie, putem deduce informații aplicând XOR între ele.
+
+# Sisteme de criptare istorice
+
+## 1. Criptare prin substituție
+Sistem ales: Cifrul lui Cezar.
+- Exemplu:
+  - Cheie: 3
+  - Text clar: `HELLO`
+  - Text criptat: `KHOOR`
+- Securitate: slabă, vulnerabilă la analiza frecvenței.
+- Criptanaliză: analiză de frecvență, brute-force (doar 25 de chei posibile).
+
+## 2. Criptare prin transpoziție
+Sistem ales: Transpoziția coloanelor.
+- Exemplu:
+  - Text clar: `HELLO WORLD`
+  - Rearanjare: `HLOOLELWRD`
+- Securitate: mai puternică decât substituția, dar vulnerabilă la analiză statistică.
+- Criptanaliză: permutare brută, recunoaștere de modele.
+
+# Analiza de frecvență
+
+Text criptat furnizat → analizăm frecvența literelor și comparăm cu frecvențele tipice ale limbii engleze.
+
+Cod Python:
+```python
+from collections import Counter
+
+encrypted_text = "ENHFJ EWK LML EOJ GDJ BMONKC ..."
+letter_counts = Counter(encrypted_text.replace(" ", ""))
+print(letter_counts.most_common())
+```
+După înlocuirea literelor conform frecvențelor, obținem textul clar și sursa acestuia.
+
+# Sistemul Enigma
+
+1. Setăm cheia zilei din cartea codurilor.
+2. Introducem cheia în simulator.
+3. Criptăm numele.
+4. Decriptăm mesajul folosind aceeași setare.
+5. Exemplu de text criptat care nu poate fi numele nostru: `[exemplu]`. Raționamentul: Enigma nu poate cripta o literă în ea însăși.
