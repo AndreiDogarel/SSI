@@ -113,6 +113,7 @@ Se consideră un sistem criptografic cu cheie de 512 biți.
   \[ 2^{512} \]
 
 - **Timpul necesar pentru a testa toate cheile cu un calculator care testează \( 2^{50} \) chei/secundă:**
+  
   \[ \frac{2^{512}}{2^{50}} = 2^{462} \text{ secunde} \]
 
 - **Eficiența atacului:**
