@@ -322,7 +322,7 @@ print("Parola hash-uită:", hashed)
 ## 2. Vulnerabilități introduse prin programare
 
 - Programul compară input-ul utilizatorului cu parola stocată "fmiSSI". În mod normal, doar introducând "fmiSSI" ar trebui să afișeze mesajul "Parola introdusa este corecta!". Orice alt input afișează mesajul "Ati introdus o parola gresita :(".
-- Pentru a exploata vulnerabilitatea, putem folosi un input de lungime mai mare, cum ar fi: AAAAAAAAfmiSSI
+- Pentru a exploata vulnerabilitatea, putem folosi un input de lungime mai mare, cum ar fi: AAAAAAAAAAAAAAA
 - Această vulnerabilitate este un Buffer Overflow
 
 ## 3. Detecția fișierelor pe baza valorii hash
