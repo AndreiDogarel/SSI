@@ -221,13 +221,114 @@ print(letter_counts.most_common())
   Parolele sunt stocate în text clar, ceea ce prezintă un risc major în cazul unei breșe de securitate.
 
 - **Exemplul 2:**  
-  Parolele sunt hash-uite, dar nu folosesc un salt unic pentru fiecare utilizator, ceea ce face hash-urile vulnerabile la atacuri de tip rainbow table.
+  Nu există validare a parolei înainte de hashing.
 
 - **Exemplul 3:**  
-  Se folosește o funcție hash rapidă (MD5 sau SHA-1), care este vulnerabilă la atacuri brute-force datorită vitezei mari de calcul.
+  Se folosește o funcție hash rapidă (SHA256), care este vulnerabilă la atacuri brute-force datorită vitezei mari de calcul.
 
 - **Exemplul 4:**  
-  Parolele sunt hash-uite și folosesc săruri, dar sarea este identică pentru toți utilizatorii, ceea ce reduce semnificativ protecția.
+  Parolele sunt hash-uite și folosesc un salt global, ceea ce reduce semnificativ protecția.
 
 - **Exemplul 5:**  
-  Parolele sunt hash-uite cu o funcție adaptivă (bcrypt) și sarea este unică pentru fiecare utilizator. Aceasta este considerată o bună practică în securizarea parolelor.
+  Parolele sunt hash-uite cu MD5, care este extrem de rapid și vulnerabil la: atacuri de tip dicționar, atacuri de tip rainbow table, atacuri de coliziune. De asemenea, este folosit ASCII encoding, care suportă doar 128 de caractere și este limitat la text simplu. Dacă parola utilizatorului conține caractere speciale sau internaționale, hash-ul va fi incorect.
+
+
+# Securitatea Sistemelor Informatice - Laborator 8
+
+## 2. Vulnerabilități introduse prin programare
+
+- Programul compară input-ul utilizatorului cu parola stocată "fmiSSI". În mod normal, doar introducând "fmiSSI" ar trebui să afișeze mesajul "Parola introdusa este corecta!". Orice alt input afișează mesajul "Ati introdus o parola gresita :(".
+- Pentru a exploata vulnerabilitatea, putem folosi un input de lungime mai mare, cum ar fi: AAAAAAfmiSSI
+- Această vulnerabilitate este un Buffer Overflow
+
+## 3. Detecția fișierelor pe baza valorii hash
+
+```python
+import hashlib
+import requests
+
+file_path = "C:/Program Files (x86)/Steam/steam.exe"
+
+def calculate_sha256(file_path):
+    sha256_hash = hashlib.sha256()
+    with open(file_path, "rb") as f:
+        for byte_block in iter(lambda: f.read(4096), b""):
+            sha256_hash.update(byte_block)
+    return sha256_hash.hexdigest()
+
+file_hash = calculate_sha256(file_path)
+print(f"Hash-ul SHA256: {file_hash}")
+
+API_KEY = input("Introdu API Key-ul pentru VirusTotal: ")
+
+url = f"https://www.virustotal.com/api/v3/files/{file_hash}"
+headers = {
+    "x-apikey": API_KEY
+}
+
+response = requests.get(url, headers=headers)
+if response.status_code == 200:
+    data = response.json()
+    try:
+        total_vendors = data['data']['attributes']['last_analysis_stats']['malicious']
+        print(f"Numarul de vendori care detecteaza fisierul ca fiind malitios: {total_vendors}")
+    except KeyError:
+        print("Fisierul nu este detectat ca malitios de niciun vendor")
+else:
+    print("Eroare la conectarea cu VirusTotal. Verificati API Key-ul")
+```
+```
+Numarul de vendori care detecteaza fisierul ca fiind malitios: 1
+```
+
+
+# Securitatea Sistemelor Informatice - Laborator 9
+
+## 2. Advanced Encryption Standard (AES)
+- a) Apare o eroare: ValueError: Data must be aligned to block boundary in ECB mode. Eroarea apare deoarece textul (`data`) nu este un multiplu de 16 bytes
+- b) ECB (Electronic Codebook)
+- c) Nu. ECB nu oferă confidențialitate semantică și modelele din textul clar sunt reflectate în textul criptat.
+- d) **Dimensiunea cheii:** 16 bytes (128 biți). **Dimensiunea blocului:** 16 bytes (128 biți).
+- e) Adăugăm padding pentru a completa textul la 16 bytes:
+```python
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
+
+key = b'O cheie oarecare'
+data = b'test'
+data_padded = pad(data, 16)
+
+cipher = AES.new(key, AES.MODE_ECB)
+ciphertext = cipher.encrypt(data_padded)
+print(ciphertext)
+```
+- f)
+```python
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
+
+key = b'O cheie oarecare'
+iv = get_random_bytes(16)
+data = b'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest'
+data_padded = pad(data, 16)
+
+cipher = AES.new(key, AES.MODE_CBC, iv)
+ciphertext = cipher.encrypt(data_padded)
+print("Text criptat:", ciphertext)
+```
+
+
+# Securitatea Sistemelor Informatice - Laborator 11
+
+## 1. Securizarea codului - Adevărat sau Fals
+
+- **a)** Adevărat
+- **b)** Fals
+- **c)** Adevărat
+- **d)** Adevărat
+- **e)** Fals
+- **f)** Fals
+- **g)** Fals
+- **h)** Adevărat
+- **i)** Fals
