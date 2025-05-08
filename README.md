@@ -201,3 +201,33 @@ print(letter_counts.most_common())
 ```
 	ALICE AND BOB ARE THE WORLDS MOST FAMOUS CRYPTOGRAPHIC COUPLE. SINCE THEIR INVENTION IN 1978, THEY HAVE AT ONCE BEEN CALLED INSEPARABLE, AND HAVE BEEN THE SUBJECT OF NUMEROUS DIVORCES, TRAVELS, AND TORMENTS. IN THE ENSUING YEARS, OTHER CHARACTERS HAVE JOINED THEIR CRYPTOGRAPHIC FAMILY. THERES EVE, THE PASSIVE AND SUBMISSIVE EAVESDROPPER, MALLORY THE MALICIOUS ATTACKER, AND TRENT, TRUSTED BY ALL, JUST TO NAME A FEW. WHILE ALICE, BOB, AND THEIR EXTENDED FAMILY WERE ORIGINALLY USED TO EXPLAIN HOW PUBLIC KEY CRYPTOGRAPHY WORKS, THEY HAVE SINCE BECOME WIDELY USED ACROSS OTHER SCIENCE AND ENGINEERING DOMAINS. THEIR INFLUENCE CONTINUES TO GROW OUTSIDE OF ACADEMIA AS WELL: ALICE AND BOB ARE NOW A PART OF GEEK LORE, AND SUBJECT TO NARRATIVES AND VISUAL DEPICTIONS THAT COMBINE PEDAGOGY WITH IN-JOKES, OFTEN REFLECTING OF THE SEXIST AND HETERONORMATIVE ENVIRONMENTS IN WHICH THEY WERE BORN AND CONTINUE TO BE USED. MORE THAN JUST THE WORLDS MOST FAMOUS CRYPTOGRAPHIC COUPLE, ALICE AND BOB HAVE BECOME AN ARCHETYPE OF DIGITAL EXCHANGE, AND A LENS THROUGH WHICH TO VIEW BROADER DIGITAL CULTURE. Q.DUPONT AND A.CATTAPAN CRYPTOCOUPLE
 ```
+
+# Securitatea Sistemelor Informatice - Laborator 7
+
+## 1. Noțiuni introductive
+
+- **a)** Adevărat
+- **b)** Fals
+- **c)** Adevărat
+- **d)** Fals
+- **e)** Fals
+- **f)** Fals
+- **g)** Fals
+
+
+## 3. Stocarea parolelor
+
+- **Exemplul 1:**  
+  Parolele sunt stocate în text clar, ceea ce prezintă un risc major în cazul unei breșe de securitate.
+
+- **Exemplul 2:**  
+  Parolele sunt hash-uite, dar nu folosesc un salt unic pentru fiecare utilizator, ceea ce face hash-urile vulnerabile la atacuri de tip rainbow table.
+
+- **Exemplul 3:**  
+  Se folosește o funcție hash rapidă (MD5 sau SHA-1), care este vulnerabilă la atacuri brute-force datorită vitezei mari de calcul.
+
+- **Exemplul 4:**  
+  Parolele sunt hash-uite și folosesc săruri, dar sarea este identică pentru toți utilizatorii, ceea ce reduce semnificativ protecția.
+
+- **Exemplul 5:**  
+  Parolele sunt hash-uite cu o funcție adaptivă (bcrypt) și sarea este unică pentru fiecare utilizator. Aceasta este considerată o bună practică în securizarea parolelor.
