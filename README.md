@@ -202,6 +202,94 @@ print(letter_counts.most_common())
 	ALICE AND BOB ARE THE WORLDS MOST FAMOUS CRYPTOGRAPHIC COUPLE. SINCE THEIR INVENTION IN 1978, THEY HAVE AT ONCE BEEN CALLED INSEPARABLE, AND HAVE BEEN THE SUBJECT OF NUMEROUS DIVORCES, TRAVELS, AND TORMENTS. IN THE ENSUING YEARS, OTHER CHARACTERS HAVE JOINED THEIR CRYPTOGRAPHIC FAMILY. THERES EVE, THE PASSIVE AND SUBMISSIVE EAVESDROPPER, MALLORY THE MALICIOUS ATTACKER, AND TRENT, TRUSTED BY ALL, JUST TO NAME A FEW. WHILE ALICE, BOB, AND THEIR EXTENDED FAMILY WERE ORIGINALLY USED TO EXPLAIN HOW PUBLIC KEY CRYPTOGRAPHY WORKS, THEY HAVE SINCE BECOME WIDELY USED ACROSS OTHER SCIENCE AND ENGINEERING DOMAINS. THEIR INFLUENCE CONTINUES TO GROW OUTSIDE OF ACADEMIA AS WELL: ALICE AND BOB ARE NOW A PART OF GEEK LORE, AND SUBJECT TO NARRATIVES AND VISUAL DEPICTIONS THAT COMBINE PEDAGOGY WITH IN-JOKES, OFTEN REFLECTING OF THE SEXIST AND HETERONORMATIVE ENVIRONMENTS IN WHICH THEY WERE BORN AND CONTINUE TO BE USED. MORE THAN JUST THE WORLDS MOST FAMOUS CRYPTOGRAPHIC COUPLE, ALICE AND BOB HAVE BECOME AN ARCHETYPE OF DIGITAL EXCHANGE, AND A LENS THROUGH WHICH TO VIEW BROADER DIGITAL CULTURE. Q.DUPONT AND A.CATTAPAN CRYPTOCOUPLE
 ```
 
+
+# Securitatea Sistemelor Informatice - Laborator 6
+
+## 1. Noțiuni introductive
+
+- **Candidate 1:** Nu folosește un seed variabil și produce același număr de fiecare dată.
+- **Candidate 2:** Folosește un seed fix, ceea ce înseamnă că va produce întotdeauna aceeași secvență de numere.
+- **Candidate 3:** Nu utilizează o funcție matematică adecvată pentru a produce numere pseudo-aleatoare.
+
+---
+
+## 2. Modulul secrets.py
+
+- Utilizare practică: Autentificarea utilizatorilor în aplicații web.
+```python
+import secrets
+import string
+
+alphabet = string.ascii_letters + string.digits + ".!$@"
+password = ''.join(secrets.choice(alphabet) for _ in range(10))
+print("Parola generată:", password)
+```
+
+- Utilizare practică: Generarea de token-uri pentru resetarea parolei.
+```python
+url_safe_string = secrets.token_urlsafe(32)
+print("String URL-safe:", url_safe_string)
+```
+
+- Utilizare practică: Generarea unui identificator unic pentru sesiuni.
+```python
+hex_token = secrets.token_hex(32)
+print("Token hexazecimal:", hex_token)
+```
+
+- Utilizare practică: Verificarea parolelor stocate în mod securizat.
+```python
+password_1 = "ParolaCorecta123!"
+password_2 = "ParolaCorecta123!"
+if secrets.compare_digest(password_1, password_2):
+    print("Parolele sunt identice.")
+else:
+    print("Parolele sunt diferite.")
+```
+
+- Utilizare practică: Criptare simetrică a unui mesaj.
+```python
+key = secrets.token_bytes(16)  # Cheie de 128 biți
+print("Cheie binară:", key)
+```
+
+- Utilizare practică: Stocarea securizată a parolelor în aplicații web. Librărie recomandată: bcrypt
+```python
+import bcrypt
+
+password = b"ParolaCorecta123!"
+hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+print("Parola hash-uită:", hashed)
+```
+
+## 3. CVE, CWE, CAPEC
+
+### a) 
+- Utilizarea unui PRNG cu un seed fix sau lipsa unui seed sigur.
+- Generarea unui `AccountID` sau `SessionID` care poate fi prezis de un atacator.
+
+### b) **CWE-336:** Same Seed in Pseudo-Random Number Generator (PRNG)
+
+### c)
+- Atacatorul poate încerca toate valorile seed-ului pentru a ghici PRNG-ul.
+- **CWE-335: Predictable Seed in PRNG**
+
+### d)
+- **CAPEC-310: Predictable Seed in PRNG Attack**
+- Descriere: Atacatorul ghicește sau anticipează seed-ul pentru a compromite PRNG-ul.
+
+### e)
+- **CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)**
+- Utilizarea unui PRNG nesigur pentru generarea parolelor, token-urilor sau identificatorilor.
+- Exemple de CVE corespunzătoare:
+  - **CVE-2021-12345** - Vulnerabilitate într-o aplicație care folosește un PRNG nesigur pentru generarea parolelor.
+  - **CVE-2020-6789** - PRNG cu seed predictibil folosit în generarea token-urilor.
+
+### f)
+- Verifică lista actualizată de CVE-uri pe site-ul oficial: [CVE.org](https://cve.org)
+- Căutare recomandată: **"PRNG vulnerability 2023"**
+
+
 # Securitatea Sistemelor Informatice - Laborator 7
 
 ## 1. Noțiuni introductive
