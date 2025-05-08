@@ -285,10 +285,6 @@ print("Parola hash-uită:", hashed)
   - **CVE-2021-12345** - Vulnerabilitate într-o aplicație care folosește un PRNG nesigur pentru generarea parolelor.
   - **CVE-2020-6789** - PRNG cu seed predictibil folosit în generarea token-urilor.
 
-### f)
-- Verifică lista actualizată de CVE-uri pe site-ul oficial: [CVE.org](https://cve.org)
-- Căutare recomandată: **"PRNG vulnerability 2023"**
-
 
 # Securitatea Sistemelor Informatice - Laborator 7
 
